@@ -15,6 +15,17 @@
 
 Osmedeus allows you automated run the collection of awesome tools to reconnaissance and vulnerability scanning against the target.
 
+
+## Next generation version?
+
+<p align="center">
+  <img alt="huntersuite" src="https://user-images.githubusercontent.com/23289085/101143253-35ea6b80-3649-11eb-9130-d1fc306c9a76.png" height="200" />
+  <p align="center">
+Enjoying this tool? Support it's development and take your game to the next level by using <a href="https://huntersuite.io">HunterSuite.io</a>
+  </p>
+</p>
+
+
 ## Installation
 
 ```
@@ -23,7 +34,9 @@ cd Osmedeus
 ./install.sh
 ```
 
-This install only focus on Kali linux, check more install on [Usage page](https://j3ssie.github.io/Osmedeus/installation/)
+This install only focus on Kali linux, check more install on [Usage page](https://j3ssie.github.io/Osmedeus/installation/).
+
+**NOTE:** You might need to do `sudo su` before install or using this otherwise you might get issues with dependency problems.
 
 ## Using Docker
 
@@ -107,10 +120,7 @@ If you love my tool and would like to support my work. [Become a backer](https:/
 
 ```
 
-## What to do next after do recon?
-
-Check out my scanner [Jaeles](https://github.com/jaeles-project/jaeles).
-
+## What to do next after do recon? Check out my scanner [Jaeles](https://github.com/jaeles-project/jaeles).
 
 ## Disclaimer
 
@@ -130,10 +140,6 @@ Please take a look at [CHANGELOG.md](https://github.com/j3ssie/Osmedeus/blob/mas
 ## Contributors
 
 If you have some new idea about this project, issue, feedback or found some valuable tool feel free to open an issue for just DM me via [@j3ssiejjj](https://twitter.com/j3ssiejjj).
-
-### Special thanks
-
-Thanks to [@gujjuboy10x00](https://twitter.com/vis_hacker) for contribute so many awesome ideas to this tool.
 
 ### Code Contributors
 
@@ -163,7 +169,11 @@ Support this project with your organization. Your logo will show up here with a 
 <a href="https://opencollective.com/Osmedeus/organization/8/website"><img src="https://opencollective.com/Osmedeus/organization/8/avatar.svg"></a>
 <a href="https://opencollective.com/Osmedeus/organization/9/website"><img src="https://opencollective.com/Osmedeus/organization/9/avatar.svg"></a>
 
-
 ## Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/j3ssie/Osmedeus.svg)](https://starchart.cc/j3ssie/Osmedeus)
+
+
+## Donation
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/j3ssiejjj)

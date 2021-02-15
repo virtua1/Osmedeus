@@ -19,8 +19,6 @@ install_banner "git, nmap, masscan, chromium, npm, golang"
 [ -x "$(command -v nmap)" ] || sudo $PACKGE_MANAGER install nmap -y 2>/dev/null
 [ -x "$(command -v masscan)" ] || sudo $PACKGE_MANAGER install masscan -y 2>/dev/null
 [ -x "$(command -v chromium)" ] || sudo $PACKGE_MANAGER install chromium -y 2>/dev/null
-[ -x "$(command -v npm)" ] || sudo $PACKGE_MANAGER install npm -y 2>/dev/null
-[ -x "$(command -v go)" ] || sudo $PACKGE_MANAGER install golang -y 2>/dev/null
 [ -x "$(command -v make)" ] || sudo $PACKGE_MANAGER install build-essential -y 2>/dev/null
 [ -x "$(command -v csvlook)" ] || sudo $PACKGE_MANAGER install csvkit -y 2>/dev/null
 [ -x "$(command -v rg)" ] || sudo $PACKGE_MANAGER install ripgrep -y 2>/dev/null
@@ -101,7 +99,7 @@ install_banner "providers-data for subdomain takeover"
 ####
 
 ## technology signature
-[[ -f $DATA_PATH/apps.json ]] || wget -q -O $DATA_PATH/apps.json https://raw.githubusercontent.com/AliasIO/Wappalyzer/master/src/apps.json
+[[ -f $DATA_PATH/apps.json ]] || wget -q -O $DATA_PATH/apps.json https://raw.githubusercontent.com/AliasIO/Wappalyzer/master/src/technologies.json
 
 ### Nmap stuff
 install_banner "nmap vulners nse"
@@ -140,65 +138,83 @@ fi
 PS="$ "
 source $DEFAULT_SHELL
 
+## Install latest go binary
+cd $CWD
 # update golang version
-install_banner "Update Golang version"
-wget -qO- https://raw.githubusercontent.com/udhos/update-golang/master/update-golang.sh | bash 2>/dev/null
+install_banner "Install Golang latest version"
+wget -q -O - https://raw.githubusercontent.com/canha/golang-tools-install-script/master/goinstall.sh | bash
 
-GO_BIN=$(which go)
-[[ -f /usr/local/go/bin/go ]] && GO_BIN=/usr/local/go/bin/go
+GO_BIN="$HOME/.go/bin/go"
+# in case the script fail
+[[ -f $GO_BIN ]] || GO_BIN=$(which go)
+echo -e "\033[1;32m[+] Detected go binary: $GO_BIN \033[0m"
+[[ -d $GO_DIR ]] || GO_DIR=$GOPATH/bin
+echo -e "\033[1;32m[+] Detected go tools: $GO_DIR \033[0m"
+
+GOROOT=$HOME/.go
+PATH=$GOROOT/bin:$PATH
+GOPATH=$HOME/go
+PATH=$GOPATH/bin:$PATH
+
+export GO_BIN="$HOME/.go/bin/go"
+export GOROOT=$HOME/.go
+export PATH=$GOROOT/bin:$PATH
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
+cd $CWD
 
 ##
 # Install go stuff
 ##
-install_banner "subfinder"
-$GO_BIN get -u github.com/projectdiscovery/subfinder/cmd/subfinder
 install_banner "gobuster"
-$GO_BIN get -u github.com/OJ/gobuster
+$GO_BIN get -ldflags "-s -w" -u github.com/OJ/gobuster
 install_banner "aquatone"
-$GO_BIN get -u github.com/michenriksen/aquatone
-install_banner "gitrob"
-$GO_BIN get -u github.com/michenriksen/gitrob
+$GO_BIN get -ldflags "-s -w" -u github.com/michenriksen/aquatone
 install_banner "subjack"
-$GO_BIN get -u github.com/haccer/subjack
+$GO_BIN get -ldflags "-s -w" -u github.com/haccer/subjack
 install_banner "tko-subs"
-$GO_BIN get -u github.com/anshumanbh/tko-subs
+$GO_BIN get -ldflags "-s -w" -u github.com/anshumanbh/tko-subs
 install_banner "subzy"
-$GO_BIN get -u github.com/lukasikic/subzy
+$GO_BIN get -ldflags "-s -w" -u github.com/lukasikic/subzy
 install_banner "goaltdns"
-$GO_BIN get -u github.com/subfinder/goaltdns
-install_banner "gitleaks"
-$GO_BIN get -u github.com/zricethezav/gitleaks
+$GO_BIN get -ldflags "-s -w" -u github.com/subfinder/goaltdns
 install_banner "gowitness"
-$GO_BIN get -u github.com/sensepost/gowitness
+$GO_BIN get -ldflags "-s -w" -u github.com/sensepost/gowitness
 install_banner "webanalyze"
-$GO_BIN get -u github.com/rverton/webanalyze/...
+$GO_BIN get -ldflags "-s -w" -u github.com/rverton/webanalyze/cmd/webanalyze
 install_banner "assetfinder"
-$GO_BIN get -u github.com/tomnomnom/assetfinder
+$GO_BIN get -ldflags "-s -w" -u github.com/tomnomnom/assetfinder
 install_banner "waybackurls"
-$GO_BIN get -u github.com/tomnomnom/waybackurls
+$GO_BIN get -ldflags "-s -w" -u github.com/tomnomnom/waybackurls
 install_banner "meg"
-$GO_BIN get -u github.com/tomnomnom/meg
+$GO_BIN get -ldflags "-s -w" -u github.com/tomnomnom/meg
 install_banner "httprobe"
-$GO_BIN get -u github.com/tomnomnom/httprobe
+$GO_BIN get -ldflags "-s -w" -u github.com/tomnomnom/httprobe
 install_banner "unfurl"
-$GO_BIN get -u github.com/tomnomnom/unfurl
+$GO_BIN get -ldflags "-s -w" -u github.com/tomnomnom/unfurl
 install_banner "filter-resolved"
-$GO_BIN get -u github.com/tomnomnom/hacks/filter-resolved
+$GO_BIN get -ldflags "-s -w" -u github.com/tomnomnom/hacks/filter-resolved
 install_banner "ffuf"
-$GO_BIN get -u github.com/ffuf/ffuf
+$GO_BIN get -ldflags "-s -w" -u github.com/ffuf/ffuf
 install_banner "metabigor"
-$GO_BIN get -u github.com/j3ssie/metabigor
-$GO_BIN get -u github.com/jaeles-project/gospider
-install_banner "rgf"
-$GO_BIN get -u github.com/j3ssie/rgf
+$GO_BIN get -ldflags "-s -w" -u github.com/j3ssie/metabigor
+install_banner "gospider"
+$GO_BIN get -ldflags "-s -w" -u github.com/jaeles-project/gospider
 install_banner "go cli-utils"
-$GO_BIN get -u github.com/j3ssie/go-auxs/getIP
-$GO_BIN get -u github.com/j3ssie/go-auxs/just-resolved
+$GO_BIN get -ldflags "-s -w" -u github.com/j3ssie/go-auxs/just-resolved
 
+install_banner "gitleaks"
+GO111MODULE=on $GO_BIN get -ldflags "-s -w" github.com/zricethezav/gitleaks/v6
 install_banner "amass"
-GO111MODULE=on $GO_BIN get -u github.com/OWASP/Amass/v3/... 2>/dev/null
+GO111MODULE=on $GO_BIN get -ldflags "-s -w" github.com/OWASP/Amass/v3/... 2>/dev/null
+install_banner "subfinder"
+GO111MODULE=on $GO_BIN get -ldflags "-s -w" -u github.com/projectdiscovery/subfinder/v2/cmd/subfinder
+install_banner "wildcheck"
+GO111MODULE=on $GO_BIN get -ldflags "-s -w" -u github.com/theblackturtle/wildcheck
+install_banner "fprobe"
+GO111MODULE=on $GO_BIN get -ldflags "-s -w" -u github.com/theblackturtle/fprobe
 install_banner "jaeles"
-GO111MODULE=on $GO_BIN get -u github.com/jaeles-project/jaeles 2>/dev/null
+GO111MODULE=on $GO_BIN get -ldflags "-s -w" github.com/jaeles-project/jaeles
 
 cp $GO_DIR/* "$PLUGINS_PATH/go/" 2>/dev/null
 # install_banner "observatory"
@@ -233,11 +249,6 @@ install_banner "truffleHog"
 pip3 install truffleHog
 
 cd $PLUGINS_PATH
-
-install_banner "rgf signatures"
-git clone https://github.com/j3ssie/rgf 2>/dev/null
-mkdir -p ~/.rgf/ 2>/dev/null
-cp -R $PLUGINS_PATH/rgf/signatures/* ~/.rgf/
 
 # install_banner "testssl.sh"
 # git clone https://github.com/drwetter/testssl.sh 2>/dev/null
